@@ -4,12 +4,10 @@ using Logistique.Data.Description.Models.Definitions;
 
 namespace Logistique.Data.Description.Models.Entities;
 
-public class ArticleEntity : EntityBase<int>
+public class StockEntity : EntityBase<int>
 {
-    [Required]
-    public string Ean {get;set;}
-    [Required]
-    public string Description{get;set;}
-    [Required]
-    public string PartNo {get;set;}
+    public int Quantity {get;set;}
+    [ForeignKey("Article")]
+    public int ArticleId {get;set;}
+    public ArticleEntity Article {get;set;}
 }
