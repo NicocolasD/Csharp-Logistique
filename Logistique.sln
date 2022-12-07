@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistique.Data", "Logistiq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistique.Data.Description", "Logistique.Data.Description\Logistique.Data.Description.csproj", "{F012C5D4-19AD-4B83-814C-9C22571EA65E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistique.Business", "Logistique.Business\Logistique.Business.csproj", "{F087CBF7-5A84-42C0-B874-7E46021359B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistique.Business.Description", "Logistique.Business.Description\Logistique.Business.Description.csproj", "{046725CF-9E53-4F8B-ABF7-FE4A37E6D71A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{F012C5D4-19AD-4B83-814C-9C22571EA65E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F012C5D4-19AD-4B83-814C-9C22571EA65E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F012C5D4-19AD-4B83-814C-9C22571EA65E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F087CBF7-5A84-42C0-B874-7E46021359B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F087CBF7-5A84-42C0-B874-7E46021359B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F087CBF7-5A84-42C0-B874-7E46021359B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F087CBF7-5A84-42C0-B874-7E46021359B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046725CF-9E53-4F8B-ABF7-FE4A37E6D71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046725CF-9E53-4F8B-ABF7-FE4A37E6D71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046725CF-9E53-4F8B-ABF7-FE4A37E6D71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046725CF-9E53-4F8B-ABF7-FE4A37E6D71A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
