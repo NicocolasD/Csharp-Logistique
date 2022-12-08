@@ -10,4 +10,5 @@ public interface IStockService
     Task UpdateStock(int id, Stock updatedStock);
     Task RemoveStockById(int id);
     Task RemoveStockByPartId(int articleId);
+    Task AddQuantityInStock(int articleId, int quantity);
 }

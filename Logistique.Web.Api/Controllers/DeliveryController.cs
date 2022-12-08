@@ -10,17 +10,19 @@ using Microsoft.AspNetCore.Mvc;
 public class DeliveryController : ControllerBase
 {
     private readonly ILogger<DeliveryController> _logger;
-    private readonly IDeliveryService _service;
-    public DeliveryController(ILogger<DeliveryController> logger, IDeliveryService service)
+    private readonly IDeliveryService _deliveryService;
+    private readonly IStockService _stockService;
+    public DeliveryController(ILogger<DeliveryController> logger, IDeliveryService deliveryService, IStockService stockService)
     {
         _logger = logger;
-        _service = service;
+        _deliveryService = deliveryService;
+        _stockService = stockService;
     }
 
     [HttpGet("GetReceptions")]
     public async Task<ActionResult<List<Delivery>>> GetAllDelivery()
     {
-        var deliveries = await _service.GetAll();
+        var deliveries = await _deliveryService.GetAll();
         if (deliveries.Any())
             return Ok(deliveries);
         else
@@ -30,7 +32,7 @@ public class DeliveryController : ControllerBase
     [HttpGet("GetById/{id}")]
     public async Task<ActionResult<Delivery>> GetDeliveryById(int id)
     {
-        var delivery = await _service.GetDeliveryById(id);
+        var delivery = await _deliveryService.GetDeliveryById(id);
         if (delivery != null)
             return Ok(delivery);
         else 
@@ -42,7 +44,15 @@ public class DeliveryController : ControllerBase
     {
         try
         {
-            await _service.AddDelivery(newDelivery);
+            // Ajout de la réception
+            await _deliveryService.AddDelivery(newDelivery);
+
+            //Ajout de la quantité reçue en stock
+            foreach(var deliveryLine in newDelivery.DeliveryLines)
+            {
+                await _stockService.AddQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+            }
+            
             return Ok(newDelivery);
         }
         catch (System.Exception ex)
@@ -56,7 +66,7 @@ public class DeliveryController : ControllerBase
     {
         try
         {
-            await _service.UpdateDelivery(id, updatedDelivery);
+            await _deliveryService.UpdateDelivery(id, updatedDelivery);
             return Ok();
         }
         catch (KeyNotFoundException ex)
@@ -74,7 +84,7 @@ public class DeliveryController : ControllerBase
     {
         try
         {
-            await _service.RemoveDeliveryById(id);
+            await _deliveryService.RemoveDeliveryById(id);
             return Ok();
         }
         catch (KeyNotFoundException ex)
