@@ -6,7 +6,7 @@ public interface IArticleRepository
 {
     Task<ArticleEntity> GetById(int id);
     Task<List<ArticleEntity>> GetAll();
-    Task AddArticle(ArticleEntity newArticle);
+    Task<int> AddArticle(ArticleEntity newArticle);
     Task UpdateArticle(int id, ArticleEntity updatedArticle);
     Task RemoveArticleById(int id);
 }

@@ -33,4 +33,30 @@ public class StockService : IStockService
         List<Stock> stock = _mapper.Map<List<Stock>>(stockEntities);
         return stock;
     }
+
+    public async Task AddStock(Stock newStock)
+    {
+        var newStockEntity = _mapper.Map<StockEntity>(newStock);
+        await _repo.AddStock(newStockEntity);
+        return;
+    }
+
+    public async Task UpdateStock(int id, Stock updatedStock)
+    {
+        var updatedStockEntity = _mapper.Map<StockEntity>(updatedStock);
+        await _repo.UpdateStock(id, updatedStockEntity);
+        return;
+    }
+
+    public async Task RemoveStockById(int id)
+    {
+        await _repo.RemoveStockById(id);
+        return;
+    }
+
+    public async Task RemoveStockByArticleId(int articleId)
+    {
+        await _repo.RemoveStockByArticleId(articleId);
+        return;
+    }
 }

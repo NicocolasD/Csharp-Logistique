@@ -24,15 +24,15 @@ public class ArticleRepository : IArticleRepository
         return await _context.Articles.ToListAsync();
     }
 
-    public async Task AddArticle(ArticleEntity newArticle)
+    public async Task<int> AddArticle(ArticleEntity newArticle)
     {
         newArticle.CreatedBy = "ANONYMOUS";
         newArticle.LastModifiedBy = "ANONYMOUS";
         newArticle.CreationDate = DateTime.Now;
         newArticle.LastModificationDate = DateTime.Now;
-        await _context.Articles.AddAsync(newArticle);
+        var value = await _context.Articles.AddAsync(newArticle);
         _context.SaveChanges();
-        return;
+        return value.Entity.Id;
     }
 
     public async Task UpdateArticle(int id, ArticleEntity updatedArticle)
@@ -45,7 +45,7 @@ public class ArticleRepository : IArticleRepository
             articleToUpdate.PartNo = updatedArticle.PartNo;
             articleToUpdate.LastModificationDate = DateTime.Now;
             articleToUpdate.LastModifiedBy = "ANONYMOUS";
-            _context.Update(articleToUpdate);
+            _context.Articles.Update(articleToUpdate);
             _context.SaveChanges();
             return;
         } else {

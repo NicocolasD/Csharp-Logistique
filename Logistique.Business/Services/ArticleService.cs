@@ -34,11 +34,11 @@ public class ArticleService : IArticleService
         return articles;
     }
 
-    public async Task AddArticle(Article newArticle)
+    public async Task<int> AddArticle(Article newArticle)
     {
         var newArticleEntity = _mapper.Map<ArticleEntity>(newArticle);
-        await _repo.AddArticle(newArticleEntity);
-        return;
+        var newArticleId = await _repo.AddArticle(newArticleEntity);
+        return newArticleId;
     }
 
     public async Task UpdateArticle(int id, Article updatedArticle)

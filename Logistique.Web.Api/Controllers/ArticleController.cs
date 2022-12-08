@@ -9,19 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 
 public class ArticleController : ControllerBase
 {
-    private readonly IArticleService _service;
+    private readonly IArticleService _articleService;
+    private readonly IStockService _stockService;
     private readonly ILogger<ArticleController> _logger;
 
-    public ArticleController(ILogger<ArticleController> logger, IArticleService service)
+    public ArticleController(ILogger<ArticleController> logger, IArticleService articleService, IStockService stockService)
     {
         _logger = logger;
-        _service = service;
+        _articleService = articleService;
+        _stockService = stockService;
     }
 
     [HttpGet("GetArticles")]
     public async Task<ActionResult<List<Article>>> Get()
     {
-        var articles = await _service.GetAll();
+        var articles = await _articleService.GetAll();
         if (articles.Any())
             return Ok(articles);
         else 
@@ -31,7 +33,7 @@ public class ArticleController : ControllerBase
     [HttpGet("GetById/{id}")]
     public async Task<ActionResult<Article>> GetById(int id)
     {
-        var article = await _service.GetArticleById(id);
+        var article = await _articleService.GetArticleById(id);
         if (article != null)
             return Ok(article);
         else 
@@ -43,7 +45,8 @@ public class ArticleController : ControllerBase
     {
         try
         {
-            await _service.AddArticle(newArticle);
+            var articleAddedId = await _articleService.AddArticle(newArticle);
+            await _stockService.AddStock(new Stock(){ArticleId = articleAddedId});
             return Ok(newArticle);
         }
         catch (System.Exception ex)
@@ -57,7 +60,7 @@ public class ArticleController : ControllerBase
     {
         try
         {
-            await _service.UpdateArticle(id, updatedArticle);
+            await _articleService.UpdateArticle(id, updatedArticle);
             return Ok();
         }
         catch (KeyNotFoundException ex)
@@ -75,7 +78,8 @@ public class ArticleController : ControllerBase
     {
         try
         {
-            await _service.RemoveArticleById(id);
+            await _stockService.RemoveStockByArticleId(id);
+            await _articleService.RemoveArticleById(id);
             return Ok();
         }
         catch (KeyNotFoundException ex)

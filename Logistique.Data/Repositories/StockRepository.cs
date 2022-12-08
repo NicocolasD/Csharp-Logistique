@@ -23,4 +23,57 @@ public class StockRepository : IStockRepository
     {
         return await _context.Stocks.Include(s => s.Article).ToListAsync();
     }
+
+    public async Task AddStock(StockEntity newStock)
+    {
+        newStock.CreatedBy = "ANONYMOUS";
+        newStock.LastModifiedBy = "ANONYMOUS";
+        newStock.CreationDate = DateTime.Now;
+        newStock.LastModificationDate = DateTime.Now;
+        await _context.Stocks.AddAsync(newStock);
+        _context.SaveChanges();
+        return;
+    }
+
+    public async Task UpdateStock(int id, StockEntity updatedStock)
+    {
+        var stockToUpdate = await _context.Stocks.FirstOrDefaultAsync(s=>s.Id == id);
+        if (stockToUpdate != null)
+        {
+            stockToUpdate.Quantity = updatedStock.Quantity;
+            stockToUpdate.LastModificationDate = DateTime.Now;
+            stockToUpdate.LastModifiedBy = "ANONYMOUS";
+            _context.Stocks.Update(stockToUpdate);
+            _context.SaveChanges();
+            return;
+        } else {
+            throw new KeyNotFoundException($"Aucun stock portant l'id {id} n'a été trouvé.");
+        }
+    }
+
+    public async Task RemoveStockById(int id)
+    {
+        var stockToDelete = await _context.Stocks.FirstOrDefaultAsync(s=>s.Id == id);
+        if (stockToDelete != null)
+        {
+            _context.Stocks.Remove(stockToDelete);
+            await _context.SaveChangesAsync();
+            return;
+        } else {
+            throw new KeyNotFoundException($"Aucun stock portant l'id {id} n'a été trouvé.");
+        }
+    }
+
+    public async Task RemoveStockByArticleId(int articleId)
+    {
+        var stockToDelete = await _context.Stocks.FirstOrDefaultAsync(s=>s.ArticleId == articleId);
+        if (stockToDelete != null)
+        {
+            _context.Stocks.Remove(stockToDelete);
+            await _context.SaveChangesAsync();
+            return;
+        } else {
+            throw new KeyNotFoundException($"Aucun stock portant l'articleId {articleId} n'a été trouvé.");
+        }
+    }
 }
