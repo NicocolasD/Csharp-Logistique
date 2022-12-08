@@ -33,5 +33,9 @@ public class DeliveryController : ControllerBase
 
     }
 
-    [HttpPatch("UpdateDelivery")]*/
+    [HttpPatch("UpdateDelivery")]
+    public Task<Delivery> UpdateDelivery(Delivery updatedDelivery)
+    {
+
+    }*/
 }
