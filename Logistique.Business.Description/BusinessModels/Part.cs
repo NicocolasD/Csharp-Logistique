@@ -1,6 +1,6 @@
 namespace Logistique.Business.BusinessModel;
 
-public class Article 
+public class Part 
 {
     public string Ean {get;set;}
     public string Description{get;set;}

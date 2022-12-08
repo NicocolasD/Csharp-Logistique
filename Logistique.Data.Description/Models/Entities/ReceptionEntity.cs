@@ -3,7 +3,7 @@ using Logistique.Data.Description.Models.Definitions;
 
 namespace Logistique.Data.Description.Models.Entities;
 
-public class ReceptionEntity : EntityBase<int>
+public class DeliveryEntity : EntityBase<int>
 {
-    public virtual List<LigneReceptionEntity> LigneReceptions {get;set;}
+    public virtual List<DeliveryLineEntity> DeliveryLines {get;set;}
 }

@@ -4,7 +4,7 @@ using Logistique.Data.Description.Models.Definitions;
 
 namespace Logistique.Data.Description.Models.Entities;
 
-public class ArticleEntity : EntityBase<int>
+public class PartEntity : EntityBase<int>
 {
     [Required]
     public string Ean {get;set;}

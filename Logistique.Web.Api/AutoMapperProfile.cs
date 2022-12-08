@@ -8,8 +8,8 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        CreateMap<ArticleEntity, Article>();
-        CreateMap<Article, ArticleEntity>();
+        CreateMap<PartEntity, Part>();
+        CreateMap<Part, PartEntity>();
         CreateMap<StockEntity, Stock>();
         CreateMap<Stock, StockEntity>();
     }

@@ -18,10 +18,10 @@ public class StockController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("GetStokByArticleId/{articleId}")]
-    public async Task<ActionResult<Stock>> GetStockByArticleId(int articleId)
+    [HttpGet("GetStokByPartId/{partId}")]
+    public async Task<ActionResult<Stock>> GetStockByPartId(int partId)
     {
-        var stock = await _service.GetStockByArticleId(articleId);
+        var stock = await _service.GetStockByPartId(partId);
         if (stock != null)
             return Ok(stock);
         else 

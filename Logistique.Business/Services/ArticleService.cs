@@ -7,50 +7,50 @@ using Microsoft.Extensions.Logging;
 
 namespace Logistique.BusinessServices;
 
-public class ArticleService : IArticleService
+public class PartServie : IPartService
 {
-    private readonly ILogger<ArticleService> _logger;
-    private readonly IArticleRepository _repo;
+    private readonly ILogger<PartServie> _logger;
+    private readonly IPartRepository _repo;
     private readonly IMapper _mapper;
 
-    public ArticleService(ILogger<ArticleService> logger, IArticleRepository repo, IMapper mapper)
+    public PartServie(ILogger<PartServie> logger, IPartRepository repo, IMapper mapper)
     {
         _logger = logger;
         _repo = repo;
         _mapper = mapper;
     }
 
-    public async Task<Article> GetArticleById(int id)
+    public async Task<Part> GetPartById(int id)
     {
-        var articleEntity = await _repo.GetById(id);
-        Article article = _mapper.Map<Article>(articleEntity);
-        return article;
+        var partEntity = await _repo.GetById(id);
+        Part part = _mapper.Map<Part>(partEntity);
+        return part;
     }
 
-    public async Task<List<Article>> GetAll()
+    public async Task<List<Part>> GetAll()
     {
-        var articleEntities = await _repo.GetAll();
-        List<Article> articles = _mapper.Map<List<Article>>(articleEntities);
-        return articles;
+        var partEntities = await _repo.GetAll();
+        List<Part> parts = _mapper.Map<List<Part>>(partEntities);
+        return parts;
     }
 
-    public async Task<int> AddArticle(Article newArticle)
+    public async Task<int> AddPart(Part newPart)
     {
-        var newArticleEntity = _mapper.Map<ArticleEntity>(newArticle);
-        var newArticleId = await _repo.AddArticle(newArticleEntity);
-        return newArticleId;
+        var newPartEntity = _mapper.Map<PartEntity>(newPart);
+        var newPartId = await _repo.AddPart(newPartEntity);
+        return newPartId;
     }
 
-    public async Task UpdateArticle(int id, Article updatedArticle)
+    public async Task UpdatePart(int id, Part updatedPart)
     {
-        var updatedArticleEntity = _mapper.Map<ArticleEntity>(updatedArticle);
-        await _repo.UpdateArticle(id, updatedArticleEntity);
+        var updatedPartEntity = _mapper.Map<PartEntity>(updatedPart);
+        await _repo.UpdatePart(id, updatedPartEntity);
         return;
     }
 
-    public async Task RemoveArticleById(int id)
+    public async Task RemovePartById(int id)
     {
-        await _repo.RemoveArticleById(id);
+        await _repo.RemovePartById(id);
         return;
     }
 }

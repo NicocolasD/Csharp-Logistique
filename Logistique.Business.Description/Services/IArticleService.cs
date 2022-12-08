@@ -2,11 +2,11 @@ using Logistique.Business.BusinessModel;
 
 namespace Logistique.Business.Description.Services;
 
-public interface IArticleService
+public interface IPartService
 {
-    Task<Article> GetArticleById(int id);
-    Task<List<Article>> GetAll();
-    Task<int> AddArticle(Article newArticle);
-    Task UpdateArticle(int id, Article updatedArticle);
-    Task RemoveArticleById(int id);
+    Task<Part> GetPartById(int id);
+    Task<List<Part>> GetAll();
+    Task<int> AddPart(Part newArticle);
+    Task UpdatePart(int id, Part updatedArticle);
+    Task RemovePartById(int id);
 }

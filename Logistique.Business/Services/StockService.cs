@@ -20,9 +20,9 @@ public class StockService : IStockService
         _mapper = mapper;
     }
 
-    public async Task<Stock> GetStockByArticleId(int articleId)
+    public async Task<Stock> GetStockByPartId(int articleId)
     {
-        var stockEntity = await _repo.GetStockByArticleId(articleId);
+        var stockEntity = await _repo.GetStockByPartId(articleId);
         Stock stock = _mapper.Map<Stock>(stockEntity);
         return stock;
     }
@@ -54,7 +54,7 @@ public class StockService : IStockService
         return;
     }
 
-    public async Task RemoveStockByArticleId(int articleId)
+    public async Task RemoveStockByPartId(int articleId)
     {
         await _repo.RemoveStockByArticleId(articleId);
         return;

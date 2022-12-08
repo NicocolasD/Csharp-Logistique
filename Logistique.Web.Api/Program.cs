@@ -19,8 +19,8 @@ builder.Services.AddDbContextPool<LogistiqueDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //Services
-builder.Services.AddScoped<IArticleService, ArticleService>();
-builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IPartService, PartServie>();
+builder.Services.AddScoped<IPartRepository, PartRepository>();
 builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 

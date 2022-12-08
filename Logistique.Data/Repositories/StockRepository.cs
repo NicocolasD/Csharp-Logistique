@@ -14,14 +14,14 @@ public class StockRepository : IStockRepository
         this._context = context;
     }
     
-    public async Task<StockEntity> GetStockByArticleId(int articleId)
+    public async Task<StockEntity> GetStockByPartId(int articleId)
     {
-        return await _context.Stocks.Include(s=>s.Article).FirstOrDefaultAsync(s=>s.ArticleId == articleId);
+        return await _context.Stocks.Include(s=>s.Part).FirstOrDefaultAsync(s=>s.PartId == articleId);
     }
 
     public async Task<List<StockEntity>> GetAll()
     {
-        return await _context.Stocks.Include(s => s.Article).ToListAsync();
+        return await _context.Stocks.Include(s => s.Part).ToListAsync();
     }
 
     public async Task AddStock(StockEntity newStock)
@@ -66,7 +66,7 @@ public class StockRepository : IStockRepository
 
     public async Task RemoveStockByArticleId(int articleId)
     {
-        var stockToDelete = await _context.Stocks.FirstOrDefaultAsync(s=>s.ArticleId == articleId);
+        var stockToDelete = await _context.Stocks.FirstOrDefaultAsync(s=>s.PartId == articleId);
         if (stockToDelete != null)
         {
             _context.Stocks.Remove(stockToDelete);

@@ -5,47 +5,47 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Logistique.Data.Repositories;
 
-public class ArticleRepository : IArticleRepository
+public class PartRepository : IPartRepository
 {
     private LogistiqueDbContext _context;
 
-    public ArticleRepository(LogistiqueDbContext context)
+    public PartRepository(LogistiqueDbContext context)
     {
         this._context = context;
     }
 
-    public async Task<ArticleEntity> GetById(int id)
+    public async Task<PartEntity> GetById(int id)
     {
-        return await _context.Articles.FirstOrDefaultAsync(a=>a.Id == id);
+        return await _context.Parts.FirstOrDefaultAsync(a=>a.Id == id);
     }
 
-    public async Task<List<ArticleEntity>> GetAll()
+    public async Task<List<PartEntity>> GetAll()
     {
-        return await _context.Articles.ToListAsync();
+        return await _context.Parts.ToListAsync();
     }
 
-    public async Task<int> AddArticle(ArticleEntity newArticle)
+    public async Task<int> AddPart(PartEntity newPart)
     {
-        newArticle.CreatedBy = "ANONYMOUS";
-        newArticle.LastModifiedBy = "ANONYMOUS";
-        newArticle.CreationDate = DateTime.Now;
-        newArticle.LastModificationDate = DateTime.Now;
-        var value = await _context.Articles.AddAsync(newArticle);
+        newPart.CreatedBy = "ANONYMOUS";
+        newPart.LastModifiedBy = "ANONYMOUS";
+        newPart.CreationDate = DateTime.Now;
+        newPart.LastModificationDate = DateTime.Now;
+        var value = await _context.Parts.AddAsync(newPart);
         _context.SaveChanges();
         return value.Entity.Id;
     }
 
-    public async Task UpdateArticle(int id, ArticleEntity updatedArticle)
+    public async Task UpdatePart(int id, PartEntity updatedPart)
     {
-        var articleToUpdate = await _context.Articles.FirstOrDefaultAsync(a=>a.Id == id);
-        if (articleToUpdate != null)
+        var partToUpdate = await _context.Parts.FirstOrDefaultAsync(a=>a.Id == id);
+        if (partToUpdate != null)
         {
-            articleToUpdate.Description = updatedArticle.Description;
-            articleToUpdate.Ean = updatedArticle.Ean;
-            articleToUpdate.PartNo = updatedArticle.PartNo;
-            articleToUpdate.LastModificationDate = DateTime.Now;
-            articleToUpdate.LastModifiedBy = "ANONYMOUS";
-            _context.Articles.Update(articleToUpdate);
+            partToUpdate.Description = updatedPart.Description;
+            partToUpdate.Ean = updatedPart.Ean;
+            partToUpdate.PartNo = updatedPart.PartNo;
+            partToUpdate.LastModificationDate = DateTime.Now;
+            partToUpdate.LastModifiedBy = "ANONYMOUS";
+            _context.Parts.Update(partToUpdate);
             _context.SaveChanges();
             return;
         } else {
@@ -53,12 +53,12 @@ public class ArticleRepository : IArticleRepository
         }
     }
 
-    public async Task RemoveArticleById(int id)
+    public async Task RemovePartById(int id)
     {
-        var articleToDelete = await _context.Articles.FirstOrDefaultAsync(a=>a.Id == id);
-        if (articleToDelete != null)
+        var partToDelete = await _context.Parts.FirstOrDefaultAsync(a=>a.Id == id);
+        if (partToDelete != null)
         {
-            _context.Articles.Remove(articleToDelete);
+            _context.Parts.Remove(partToDelete);
             await _context.SaveChangesAsync();
             return;
         } else {
