@@ -11,4 +11,6 @@ public class LogistiqueDbContext : DbContext
 
     public DbSet<ArticleEntity> Articles { get; set; }
     public DbSet<StockEntity> Stocks { get; set; }
+    public DbSet<ReceptionEntity> Receptions {get;set;}
+    public DbSet<LigneReceptionEntity> LigneReceptions {get;set;}
 }
