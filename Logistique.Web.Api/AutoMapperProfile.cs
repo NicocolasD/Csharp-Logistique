@@ -10,5 +10,6 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<ArticleEntity, Article>();
         CreateMap<Article, ArticleEntity>();
+        CreateMap<StockEntity, Stock>();
     }
 }

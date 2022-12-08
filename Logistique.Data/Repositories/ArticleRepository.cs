@@ -14,8 +14,6 @@ public class ArticleRepository : IArticleRepository
         this._context = context;
     }
 
-
-
     public async Task<ArticleEntity> GetById(int id)
     {
         return await _context.Articles.FindAsync(id);
