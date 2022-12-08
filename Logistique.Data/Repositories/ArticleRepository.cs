@@ -16,7 +16,7 @@ public class ArticleRepository : IArticleRepository
 
     public async Task<ArticleEntity> GetById(int id)
     {
-        return await _context.Articles.FindAsync(id);
+        return await _context.Articles.FirstOrDefaultAsync(a=>a.Id == id);
     }
 
     public async Task<List<ArticleEntity>> GetAll()

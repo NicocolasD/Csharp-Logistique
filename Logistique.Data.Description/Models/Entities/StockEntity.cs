@@ -6,8 +6,7 @@ namespace Logistique.Data.Description.Models.Entities;
 
 public class StockEntity : EntityBase<int>
 {
-    public int Quantity {get;set;}
-    [ForeignKey("Article")]
+    public int Quantity {get;set;} = 0;
     public int ArticleId {get;set;}
-    public ArticleEntity Article {get;set;}
+    public virtual ArticleEntity Article {get;set;}
 }

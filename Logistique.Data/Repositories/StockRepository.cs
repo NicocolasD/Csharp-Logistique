@@ -16,11 +16,11 @@ public class StockRepository : IStockRepository
     
     public async Task<StockEntity> GetStockByArticleId(int articleId)
     {
-        return await _context.Stocks.FirstOrDefaultAsync(s=>s.ArticleId == articleId);
+        return await _context.Stocks.Include(s=>s.Article).FirstOrDefaultAsync(s=>s.ArticleId == articleId);
     }
 
     public async Task<List<StockEntity>> GetAll()
     {
-        return await _context.Stocks.ToListAsync();
+        return await _context.Stocks.Include(s => s.Article).ToListAsync();
     }
 }
