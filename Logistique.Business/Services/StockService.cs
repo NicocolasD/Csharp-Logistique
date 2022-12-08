@@ -60,7 +60,7 @@ public class StockService : IStockService
         return;
     }
 
-    public async Task AddQuantityInStock(int articleId, int quantity)
+    public async Task AddOrRemoveQuantityInStock(int articleId, int quantity)
     {
         var stockToUpdated = await _repo.GetStockByPartId(articleId);
         stockToUpdated.Quantity += quantity;

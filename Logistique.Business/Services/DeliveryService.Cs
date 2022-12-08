@@ -47,6 +47,16 @@ public class DeliveryService : IDeliveryService
         return;
     }
 
+    public async Task CancelDelivery(int id)
+    {
+        var updatedDeliveryEntity = await _repo.GetById(id);
+        updatedDeliveryEntity.State = Data.Description.Models.Entities.DeliveryState.Cancel;
+        updatedDeliveryEntity.LastModifiedBy = "ANONYMOUS";
+        updatedDeliveryEntity.LastModificationDate = DateTime.Now;
+        await _repo.UpdateDelivery(id, updatedDeliveryEntity);
+        return;
+    }
+
     public async Task RemoveDeliveryById(int id)
     {
         await _repo.RemoveDeliveryById(id);

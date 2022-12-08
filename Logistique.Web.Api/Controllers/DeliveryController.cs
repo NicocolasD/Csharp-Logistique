@@ -50,10 +50,37 @@ public class DeliveryController : ControllerBase
             //Ajout de la quantité reçue en stock
             foreach(var deliveryLine in newDelivery.DeliveryLines)
             {
-                await _stockService.AddQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+                await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
             }
             
             return Ok(newDelivery);
+        }
+        catch (System.Exception ex)
+        {
+            return StatusCode(500, $"Erreur interne : {ex.Message}");
+        }
+    }
+
+    [HttpPatch("CancelDelivery/{id}")]
+    public async Task<ActionResult> CancelDelivery(int id)
+    {
+        try
+        {
+            // Annulation de la réception
+            await _deliveryService.CancelDelivery(id);
+
+            // Suppression du stock pour les articles de la réception
+            var cancelledDelivery = await _deliveryService.GetDeliveryById(id);
+            foreach(var deliveryLine in cancelledDelivery.DeliveryLines)
+            {
+                deliveryLine.Quantity *= -1;
+                await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+            }
+            return Ok();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (System.Exception ex)
         {
