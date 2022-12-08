@@ -26,10 +26,6 @@ public class PartRepository : IPartRepository
 
     public async Task<int> AddPart(PartEntity newPart)
     {
-        newPart.CreatedBy = "ANONYMOUS";
-        newPart.LastModifiedBy = "ANONYMOUS";
-        newPart.CreationDate = DateTime.Now;
-        newPart.LastModificationDate = DateTime.Now;
         var value = await _context.Parts.AddAsync(newPart);
         _context.SaveChanges();
         return value.Entity.Id;

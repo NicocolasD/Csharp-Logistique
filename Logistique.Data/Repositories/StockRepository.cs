@@ -26,10 +26,6 @@ public class StockRepository : IStockRepository
 
     public async Task AddStock(StockEntity newStock)
     {
-        newStock.CreatedBy = "ANONYMOUS";
-        newStock.LastModifiedBy = "ANONYMOUS";
-        newStock.CreationDate = DateTime.Now;
-        newStock.LastModificationDate = DateTime.Now;
         await _context.Stocks.AddAsync(newStock);
         _context.SaveChanges();
         return;
