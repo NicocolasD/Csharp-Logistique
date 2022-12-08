@@ -12,5 +12,9 @@ public class AutoMapperProfile : Profile
         CreateMap<Part, PartEntity>();
         CreateMap<StockEntity, Stock>();
         CreateMap<Stock, StockEntity>();
+        CreateMap<DeliveryEntity, Delivery>();
+        CreateMap<Delivery, DeliveryEntity>();
+        CreateMap<DeliveryLineEntity, DeliveryLine>();
+        CreateMap<DeliveryLine, DeliveryLineEntity>();
     }
 }

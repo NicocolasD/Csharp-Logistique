@@ -19,10 +19,12 @@ builder.Services.AddDbContextPool<LogistiqueDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //Services
-builder.Services.AddScoped<IPartService, PartServie>();
+builder.Services.AddScoped<IPartService, PartService>();
 builder.Services.AddScoped<IPartRepository, PartRepository>();
 builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -73,7 +73,7 @@ public class PartController : ControllerBase
         }
     }
 
-    [HttpDelete("RemovePartById")]
+    [HttpDelete("RemovePartById/{id}")]
     public async Task<ActionResult<List<Part>>> RemovePartById(int id)
     {
         try

@@ -7,13 +7,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Logistique.BusinessServices;
 
-public class PartServie : IPartService
+public class PartService : IPartService
 {
-    private readonly ILogger<PartServie> _logger;
+    private readonly ILogger<PartService> _logger;
     private readonly IPartRepository _repo;
     private readonly IMapper _mapper;
 
-    public PartServie(ILogger<PartServie> logger, IPartRepository repo, IMapper mapper)
+    public PartService(ILogger<PartService> logger, IPartRepository repo, IMapper mapper)
     {
         _logger = logger;
         _repo = repo;

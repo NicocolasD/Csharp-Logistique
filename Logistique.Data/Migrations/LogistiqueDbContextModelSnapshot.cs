@@ -49,7 +49,7 @@ namespace Logistique.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Deliveries");
+                    b.ToTable("Deliveries", (string)null);
                 });
 
             modelBuilder.Entity("Logistique.Data.Description.Models.Entities.DeliveryLineEntity", b =>
@@ -89,7 +89,7 @@ namespace Logistique.Data.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("DeliveryLines");
+                    b.ToTable("DeliveryLines", (string)null);
                 });
 
             modelBuilder.Entity("Logistique.Data.Description.Models.Entities.PartEntity", b =>
@@ -128,7 +128,7 @@ namespace Logistique.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Parts", (string)null);
                 });
 
             modelBuilder.Entity("Logistique.Data.Description.Models.Entities.StockEntity", b =>
@@ -163,7 +163,7 @@ namespace Logistique.Data.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("Stocks");
+                    b.ToTable("Stocks", (string)null);
                 });
 
             modelBuilder.Entity("Logistique.Data.Description.Models.Entities.DeliveryLineEntity", b =>
