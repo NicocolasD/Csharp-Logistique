@@ -1,6 +1,8 @@
 using AutoMapper;
-using Logistique.Business.BusinessModel;
+using Logistique.Business.Description.BusinessModel;
 using Logistique.Data.Description.Models.Entities;
+using DeliveryStateBusiness = Logistique.Business.Description.BusinessModel.DeliveryState;
+using DeliveryStateEntity = Logistique.Data.Description.Models.Entities.DeliveryState;
 
 namespace Logistique.Web.Api;
 
@@ -16,5 +18,7 @@ public class AutoMapperProfile : Profile
         CreateMap<Delivery, DeliveryEntity>();
         CreateMap<DeliveryLineEntity, DeliveryLine>();
         CreateMap<DeliveryLine, DeliveryLineEntity>();
+        CreateMap<DeliveryStateBusiness, DeliveryStateEntity>(); 
+        CreateMap<DeliveryStateEntity, DeliveryStateBusiness>();
     }
 }

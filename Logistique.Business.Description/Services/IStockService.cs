@@ -1,4 +1,4 @@
-using Logistique.Business.BusinessModel;
+using Logistique.Business.Description.BusinessModel;
 
 namespace Logistique.Business.Description.Services;
 

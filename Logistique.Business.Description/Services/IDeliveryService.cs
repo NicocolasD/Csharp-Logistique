@@ -1,4 +1,4 @@
-using Logistique.Business.BusinessModel;
+using Logistique.Business.Description.BusinessModel;
 
 public interface IDeliveryService
 {

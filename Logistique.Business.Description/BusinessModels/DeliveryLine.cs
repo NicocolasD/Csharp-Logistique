@@ -1,4 +1,4 @@
-namespace Logistique.Business.BusinessModel;
+namespace Logistique.Business.Description.BusinessModel;
 
 public class DeliveryLine
 {

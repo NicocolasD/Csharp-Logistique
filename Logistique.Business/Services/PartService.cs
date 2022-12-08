@@ -1,5 +1,5 @@
 using AutoMapper;
-using Logistique.Business.BusinessModel;
+using Logistique.Business.Description.BusinessModel;
 using Logistique.Business.Description.Services;
 using Logistique.Data.Description.Models.Entities;
 using Logistique.Data.Description.Repositories;

@@ -1,4 +1,4 @@
-namespace Logistique.Data.Description.Models.Entities;
+namespace Logistique.Business.Description.BusinessModel;
 
 public enum DeliveryState
 {
