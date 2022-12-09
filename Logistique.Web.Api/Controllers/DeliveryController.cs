@@ -12,11 +12,14 @@ public class DeliveryController : ControllerBase
     private readonly ILogger<DeliveryController> _logger;
     private readonly IDeliveryService _deliveryService;
     private readonly IStockService _stockService;
-    public DeliveryController(ILogger<DeliveryController> logger, IDeliveryService deliveryService, IStockService stockService)
+    private readonly IStockTransactionHistoryService _stockTransactionHistoryService;
+    public DeliveryController(ILogger<DeliveryController> logger, IDeliveryService deliveryService, 
+        IStockService stockService, IStockTransactionHistoryService stockTransactionHistoryService)
     {
         _logger = logger;
         _deliveryService = deliveryService;
         _stockService = stockService;
+        _stockTransactionHistoryService = stockTransactionHistoryService;
     }
 
     [HttpGet("GetReceptions")]
@@ -66,6 +69,7 @@ public class DeliveryController : ControllerBase
             foreach(var deliveryLine in confirmedDelivery.DeliveryLines)
             {
                 await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+                await _stockTransactionHistoryService.AddTransaction(new StockTransactionHistory(){Quantity = deliveryLine.Quantity, PartId = deliveryLine.PartId});
             }
             
             return Ok(confirmedDelivery);
@@ -99,6 +103,7 @@ public class DeliveryController : ControllerBase
                 {
                     deliveryLine.Quantity *= -1;
                     await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+                    await _stockTransactionHistoryService.AddTransaction(new StockTransactionHistory(){Quantity = deliveryLine.Quantity, PartId = deliveryLine.PartId});
                 }
             }
             return Ok();

@@ -5,7 +5,7 @@ using Logistique.Data.Description.Models.Entities;
 using Logistique.Data.Description.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Logistique.BusinessServices;
+namespace Logistique.Business.Services;
 
 public class StockService : IStockService
 {

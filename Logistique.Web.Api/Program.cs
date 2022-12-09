@@ -1,5 +1,5 @@
 using Logistique.Business.Description.Services;
-using Logistique.BusinessServices;
+using Logistique.Business.Services;
 using Logistique.Data.Context;
 using Logistique.Data.Description.Repositories;
 using Logistique.Data.Repositories;
@@ -25,6 +25,8 @@ builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IDeliveryService, DeliveryService>();
 builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+builder.Services.AddScoped<IStockTransactionHistoryService, StockTransactionHistoryService>();
+builder.Services.AddScoped<IStockTransactionHistoryRepository, StockTransactionHistoryRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
