@@ -13,4 +13,5 @@ public class LogistiqueDbContext : DbContext
     public DbSet<StockEntity> Stocks { get; set; }
     public DbSet<DeliveryEntity> Deliveries {get;set;}
     public DbSet<DeliveryLineEntity> DeliveryLines {get;set;}
+    public DbSet<StockTransactionHistoryEntity> StockTransactionsHistory {get;set;}
 }
