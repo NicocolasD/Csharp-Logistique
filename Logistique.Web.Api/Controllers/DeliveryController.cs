@@ -40,19 +40,12 @@ public class DeliveryController : ControllerBase
     }
 
     [HttpPost("AddDelivery")]
-    public async Task<ActionResult<Delivery>> AddDelivery(Delivery newDelivery)
+    public async Task<ActionResult<Delivery>> AddDelivery([FromBody]Delivery newDelivery)
     {
         try
         {
             // Ajout de la réception
-            await _deliveryService.AddDelivery(newDelivery);
-
-            //Ajout de la quantité reçue en stock
-            foreach(var deliveryLine in newDelivery.DeliveryLines)
-            {
-                await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
-            }
-            
+            await _deliveryService.AddDelivery(newDelivery);            
             return Ok(newDelivery);
         }
         catch (System.Exception ex)
@@ -61,8 +54,38 @@ public class DeliveryController : ControllerBase
         }
     }
 
+    [HttpPost("ConfirmDelivery/{id}")]
+    public async Task<ActionResult<Delivery>> ConfirmDelivery(int id, [FromBody] Delivery confirmedDelivery)
+    {
+        try
+        {
+            // Ajout de la réception
+            await _deliveryService.ConfirmDelivery(id);
+
+            //Ajout de la quantité reçue en stock
+            foreach(var deliveryLine in confirmedDelivery.DeliveryLines)
+            {
+                await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+            }
+            
+            return Ok(confirmedDelivery);
+        }
+        catch (InvalidDataException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (System.Exception ex)
+        {
+            return StatusCode(500, $"Erreur interne : {ex.Message}");
+        }
+    }
+
     [HttpPatch("CancelDelivery/{id}")]
-    public async Task<ActionResult> CancelDelivery(int id)
+    public async Task<ActionResult> CancelDelivery(int id, [FromBody] Delivery deliveryToCancel)
     {
         try
         {
@@ -70,13 +93,19 @@ public class DeliveryController : ControllerBase
             await _deliveryService.CancelDelivery(id);
 
             // Suppression du stock pour les articles de la réception
-            var cancelledDelivery = await _deliveryService.GetDeliveryById(id);
-            foreach(var deliveryLine in cancelledDelivery.DeliveryLines)
-            {
-                deliveryLine.Quantity *= -1;
-                await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+            if (deliveryToCancel.State == DeliveryState.Validate){
+                var cancelledDelivery = await _deliveryService.GetDeliveryById(id);
+                foreach(var deliveryLine in cancelledDelivery.DeliveryLines)
+                {
+                    deliveryLine.Quantity *= -1;
+                    await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
+                }
             }
             return Ok();
+        }
+        catch (InvalidDataException ex)
+        {
+            return BadRequest(ex.Message);
         }
         catch (KeyNotFoundException ex)
         {

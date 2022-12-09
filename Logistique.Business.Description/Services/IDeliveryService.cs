@@ -6,6 +6,7 @@ public interface IDeliveryService
     Task<List<Delivery>> GetAll();
     Task AddDelivery(Delivery newDelivery);
     Task UpdateDelivery(int id, Delivery updatedDelivery);
+    Task ConfirmDelivery(int id);
     Task CancelDelivery(int id);
     Task RemoveDeliveryById(int id);
 }

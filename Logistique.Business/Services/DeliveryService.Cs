@@ -47,9 +47,29 @@ public class DeliveryService : IDeliveryService
         return;
     }
 
+    public async Task ConfirmDelivery(int id)
+    {
+        var updatedDeliveryEntity = await _repo.GetById(id);
+        if (updatedDeliveryEntity.State == Data.Description.Models.Entities.DeliveryState.Validate)
+        {
+            throw new InvalidDataException("La réception est déjà au statut validé.");
+        }
+        
+        updatedDeliveryEntity.State = Data.Description.Models.Entities.DeliveryState.Validate;
+        updatedDeliveryEntity.LastModifiedBy = "ANONYMOUS";
+        updatedDeliveryEntity.LastModificationDate = DateTime.Now;
+        await _repo.UpdateDelivery(id, updatedDeliveryEntity);
+        return;
+    }
+
     public async Task CancelDelivery(int id)
     {
         var updatedDeliveryEntity = await _repo.GetById(id);
+        if (updatedDeliveryEntity.State == Data.Description.Models.Entities.DeliveryState.Cancel)
+        {
+            throw new InvalidDataException("La réception est déjà au statut annulé.");
+        }
+
         updatedDeliveryEntity.State = Data.Description.Models.Entities.DeliveryState.Cancel;
         updatedDeliveryEntity.LastModifiedBy = "ANONYMOUS";
         updatedDeliveryEntity.LastModificationDate = DateTime.Now;
