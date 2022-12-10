@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
-
+[Authorize]
 
 public class DeliveryController : ControllerBase
 {
@@ -25,7 +25,6 @@ public class DeliveryController : ControllerBase
     }
 
     [HttpGet("GetReceptions")]
-    [Authorize]
     public async Task<ActionResult<List<Delivery>>> GetAllDelivery()
     {
         var deliveries = await _deliveryService.GetAll();

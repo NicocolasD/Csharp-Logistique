@@ -37,7 +37,7 @@ public class USerRepository : IUserRepository
         if (userToUpdate != null)
         {
             userToUpdate.Email = updatedUser.Email;
-            userToUpdate.Password = updatedUser.Password;
+            userToUpdate.PasswordHash = updatedUser.PasswordHash;
             userToUpdate.LastModificationDate = DateTime.Now;
             userToUpdate.LastModifiedBy = "ANONYMOUS";
             _context.Users.Update(userToUpdate);

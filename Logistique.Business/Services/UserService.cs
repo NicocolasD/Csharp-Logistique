@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using AutoMapper;
 using Logistique.Business.Description.BusinessModel;
 using Logistique.Business.Description.Services;
@@ -27,16 +28,21 @@ public class UserService : IUserService
         return users;
     }
 
-    public async Task<User> GetByUsername(string username)
+    public async Task<UserFromDB> GetByUsername(string username)
     {
         var userEntity = await _repo.GetUserByUsername(username);
-        var user = _mapper.Map<User>(userEntity);
+        var user = _mapper.Map<UserFromDB>(userEntity);
         return user;
     }
 
     public async Task AddUser(User newUser)
     {
         var newUserEntity = _mapper.Map<UserEntity>(newUser);
+
+        CreatePasswordHash(newUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+        newUserEntity.PasswordHash = passwordHash;
+        newUserEntity.PasswordSalt = passwordSalt;
+
         await _repo.AddUser(newUserEntity);
         return;
     }
@@ -47,4 +53,13 @@ public class UserService : IUserService
         await _repo.UpdateUser(updatedUserEntity);
         return;
     }
+
+    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512())
+        {
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+    }    
 }

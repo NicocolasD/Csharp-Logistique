@@ -24,5 +24,7 @@ public class AutoMapperProfile : Profile
         CreateMap<StockTransactionHistoryEntity, StockTransactionHistory>();
         CreateMap<User, UserEntity>();
         CreateMap<UserEntity, User>();
+        CreateMap<UserFromDB, UserEntity>();
+        CreateMap<UserEntity, UserFromDB>();
     }
 }

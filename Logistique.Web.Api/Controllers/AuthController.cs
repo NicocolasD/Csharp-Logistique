@@ -2,6 +2,7 @@ namespace Logistique.Web.Api.Controllers;
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Logistique.Business.Description.BusinessModel;
 using Logistique.Business.Description.Services;
@@ -30,7 +31,7 @@ public class AuthController : ControllerBase
         if (userFromBase == null)
             return NotFound($"Aucun utilisateur avec l'username {user.Username} n'a été trouvé.");
         
-        if (userFromBase.Password == user.Password)
+        if (VerifyPasswordHash(user.Password, userFromBase.PasswordHash, userFromBase.PasswordSalt))
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MaSuperSecretKey69@680"));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -68,6 +69,15 @@ public class AuthController : ControllerBase
         catch (System.Exception ex)
         {
             return StatusCode(500, $"Erreur interne : {ex.Message}");
+        }
+    }
+
+    private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512(passwordSalt))
+        {
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return computedHash.SequenceEqual(passwordHash);
         }
     }
 }
