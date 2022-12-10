@@ -22,5 +22,7 @@ public class AutoMapperProfile : Profile
         CreateMap<DeliveryStateEntity, DeliveryStateBusiness>();
         CreateMap<StockTransactionHistory, StockTransactionHistoryEntity>();
         CreateMap<StockTransactionHistoryEntity, StockTransactionHistory>();
+        CreateMap<User, UserEntity>();
+        CreateMap<UserEntity, User>();
     }
 }
