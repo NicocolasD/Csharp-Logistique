@@ -2,10 +2,12 @@ namespace Logistique.Web.Api.Controllers;
 
 using Logistique.Business.Description.BusinessModel;
 using Logistique.Business.Description.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 
 public class StockController : ControllerBase
 {

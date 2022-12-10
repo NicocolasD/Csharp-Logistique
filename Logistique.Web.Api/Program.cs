@@ -1,9 +1,12 @@
+using System.Text;
 using Logistique.Business.Description.Services;
 using Logistique.Business.Services;
 using Logistique.Data.Context;
 using Logistique.Data.Description.Repositories;
 using Logistique.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,9 +31,39 @@ builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 builder.Services.AddScoped<IStockTransactionHistoryService, StockTransactionHistoryService>();
 builder.Services.AddScoped<IStockTransactionHistoryRepository, StockTransactionHistoryRepository>();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options => 
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = "https://localhost.7091",
+        ValidAudience = "https://localhost:7091",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MaSuperSecretKey69@680"))
+    };
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("EnableCORS", builder =>
+    {
+        builder.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -41,9 +74,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseCors("EnableCORS");
 
 app.MapControllers();
 
