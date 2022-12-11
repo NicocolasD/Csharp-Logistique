@@ -9,5 +9,10 @@ public class LogistiqueDbContext : DbContext
     {
     }
 
-    public DbSet<ArticleEntity> Articles { get; set; }
+    public DbSet<PartEntity> Parts { get; set; }
+    public DbSet<StockEntity> Stocks { get; set; }
+    public DbSet<DeliveryEntity> Deliveries {get;set;}
+    public DbSet<DeliveryLineEntity> DeliveryLines {get;set;}
+    public DbSet<StockTransactionHistoryEntity> StockTransactionsHistory {get;set;}
+    public DbSet<UserEntity> Users {get;set;}
 }
