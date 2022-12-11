@@ -60,12 +60,14 @@ public class DeliveryController : ControllerBase
     }
 
     [HttpPost("ConfirmDelivery/{id}")]
-    public async Task<ActionResult<Delivery>> ConfirmDelivery(int id, [FromBody] Delivery confirmedDelivery)
+    public async Task<ActionResult<Delivery>> ConfirmDelivery(int id)
     {
         try
         {
             // Ajout de la réception
             await _deliveryService.ConfirmDelivery(id);
+
+            var confirmedDelivery = await _deliveryService.GetDeliveryById(id);
 
             //Ajout de la quantité reçue en stock
             foreach(var deliveryLine in confirmedDelivery.DeliveryLines)
@@ -91,7 +93,7 @@ public class DeliveryController : ControllerBase
     }
 
     [HttpPatch("CancelDelivery/{id}")]
-    public async Task<ActionResult> CancelDelivery(int id, [FromBody] Delivery deliveryToCancel)
+    public async Task<ActionResult> CancelDelivery(int id)
     {
         try
         {
@@ -99,15 +101,13 @@ public class DeliveryController : ControllerBase
             await _deliveryService.CancelDelivery(id);
 
             // Suppression du stock pour les articles de la réception
-            if (deliveryToCancel.State == DeliveryState.Validate){
-                var cancelledDelivery = await _deliveryService.GetDeliveryById(id);
+            var cancelledDelivery = await _deliveryService.GetDeliveryById(id);
                 foreach(var deliveryLine in cancelledDelivery.DeliveryLines)
                 {
                     deliveryLine.Quantity *= -1;
                     await _stockService.AddOrRemoveQuantityInStock(deliveryLine.PartId, deliveryLine.Quantity);
                     await _stockTransactionHistoryService.AddTransaction(new StockTransactionHistory(){Quantity = deliveryLine.Quantity, PartId = deliveryLine.PartId});
                 }
-            }
             return Ok();
         }
         catch (InvalidDataException ex)

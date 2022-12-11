@@ -8,7 +8,7 @@ L'api est composée de différentes couches qui sont elles même divisée en plu
 
 Elle contient toute la partie accès à une ou plusieurs base de données. 
 
-Elle est composée d'un premier projet de type Bibliothèque de classe, nommé Logistique.Data qui contiendra toutes les classe "repository". Les repository sont les classes dans lesquelles les données de la base de données sont récupérées. Ce sont les seules à pouvoir accéder au contexte, c'est à dire à la base de donnée.
+Elle est composée d'un premier projet de type Bibliothèque de classe, nommé Logistique.Data qui contiendra toutes les classe "repository". Les repository sont les classes dans lesquelles les données de la base de données sont accessibles. Ce sont les seules à pouvoir accéder au contexte, c'est à dire à la base de donnée.
 
 Le deuxième projet de la couche Data contient les interfaces des repository ainsi que toutes les entité nécessaires et leurs interfaces pour une définition générique.
 
@@ -44,4 +44,33 @@ C'est le seul à avoir accès à la base de donnée.
 | StockRepository | Repository du stock |
 | StockTransactionHistoryRepository | Repository de l'historique des transactions de stock
 
-Chaque repository a son interface respective ou se trouve la définition de chaque méthode du repository.
+Chaque repository a son interface respective ou se trouve la signature de chaque méthode du repository.
+
+## La couche Business ##
+
+Cette couche contient tout la partie de mapping des données extraites de la base en Data Transfert Object (DTO). Les DTO sont les modèle de données qui seront retournée par l'API vers le Front, ce sont donc les données que l'utilisateur pourra visualiser.
+
+La couche est divisée en deux projet distincts. Un projet Logistique.Business de type bibliothèque de classe, qui cotiendra tout les classes "services". Le deuxième projet, nommé "Logistique.Business.Description" contiendra les interfaces de chaque service présent dans le premier projet, ainsi que tous les BusinessModels, équivalent des DTO dans mon architecture.
+
+### Les Services ###
+
+Ils servent à convertir les données retournées par la base de données en données exploitable par l'utilisateur et l'interface utilisateur de l'application. C'est également dans ce type de classes que seront effectuées les traitements de  la données, comme par exemple le remplissage ou la modification de certain atribut de la classe. Ces ajouts et mofication ont notamment lieu lors de l'ajout ou de la modification de données en base.
+
+***Voici la liste des services***
+
+| Nom | Description |
+|--------------|-----------|
+| PartService | Service des articles |
+| DeliveryService | Service des réceptions |
+| StockService | Service du stock |
+| StockTransactionHistoryService | Service de l'historique des transactions de stock
+
+Chaque service possède sont interface où sont présentes les signatures de toutes les méthodes du service.
+
+### Les DTO, nommées BusinessModels dans mon architecture ###
+
+Les BusinessModels sont les classes qui serviront à l'API pour retourner les données à l'utilisateur et  à l'interface utilisateur de l'application. Ils serviront également à faire transiter les données de l'utilisateur vers l'API.
+
+***Voici la liste des BusinessModels***
+
+
