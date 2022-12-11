@@ -71,6 +71,35 @@ Chaque service possède sont interface où sont présentes les signatures de tou
 
 Les BusinessModels sont les classes qui serviront à l'API pour retourner les données à l'utilisateur et  à l'interface utilisateur de l'application. Ils serviront également à faire transiter les données de l'utilisateur vers l'API.
 
-***Voici la liste des BusinessModels***
+
+## La couche WEB ##
+
+Elle est composée d'un projet nommé "Logistique.Web.Api". C'est le point d'entrée de l'API, il contient tous les controllers de l'application.
+
+### Les endpoints de l'API ###
+
+Voici la liste des Endpoints : 
+
+| Url | Description |
+|--------------|-----------|
+| https://localhost:7091/Auth/login | Endpoint de connection qui permet de récupérer le Token JWT |
+| https://localhost:7091/Auth/register | Endpoint qui permet de se créer un compte utilisateur |
+| https://localhost:7091/Delivery/GetReceptions | Permet de récupérer toutes les réceptions |
+| https://localhost:7091/Delivery/Getbyid | Permet de récupérer une réception selon son id |
+| https://localhost:7091/Delivery/Adddelivery | Permet de créer une nouvelle réception |
+| https://localhost:7091/Delivery/ConfirmDelivery/{id} | Permet de confirmer une réception |
+| https://localhost:7091/Delivery/CancelDelivery/{id} | Permet d'annuler une réception |
+| https://localhost:7091/Delivery/UpdateDelivery/{id} | Permet de modifier une réception |
+| https://localhost:7091/Delivery/RemoveDeliveryById/{id} | Permet de supprimer une réception |
+| https://localhost:7091/Part/GetParts | Permet de récupérer tous les articles |
+| https://localhost:7091/Part/getbyid/{id} | Permet de récupérer un article avec son id |
+| https://localhost:7091/Part/Addpart| Permet d'ajouter un article |
+| https://localhost:7091/Part/UpdatePart/{id}| Permet de modifier un article |
+| https://localhost:7091/Part/Removepartbyid/{id}| Permt de supprimer un article |
+| https://localhost:7091/Stock/GetStocks | Permet de récupérer tousles stocks |
+| https://localhost:7091/Stock/Getstockbypartid/{partId} | Permet de récupérer un stock selon l'id d'un article |
+| https://localhost:7091/StockTransactionHistory/GetAll | Permet de récuperer toutes les transactions de stock |
+| https://localhost:7091/StockTransactionHistory/GetById/{id} | Permet de récupererune transactionde stock par son id |
+
 
 
