@@ -9,7 +9,8 @@ Cela permet de sécuriser le processus et le fonctionnement d'une méthode. Par 
 
 ## Expliquer un exemple d'usage d'une interface ou d'une class et méthode abstraite ##
 
-
+Une interface contient les signatures de méthodes. Elle contien le type de retour (string, void, int, List<T>), le nom et les paramètres d'une méthode. (Exemple : bool Exists(int a, int b).
+Plusieurs classes peuvent hériter de la même interface, cela signifie que toutes les méthodes signées dans l'interface doivent être présente dans les classes qui héritent de l'interface, même si les méthodes de chaque interface respective n'effectuent pas le même traitement.
 
 # Architecture #
 
