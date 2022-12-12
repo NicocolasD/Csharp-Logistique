@@ -1,4 +1,15 @@
-Ci dessous la documentation complète de toutes l'Api Logistique.
+Ci dessous la documentation complète de toutes l'Api Logistique, aisin que la réponse aux question du cours.
+
+# Question #
+
+## Expliquer pourquoi on utilise public, protected et private pour l'accessibilité des méthodes ##
+
+L'utilisation de public, protected et private permet de rendre inaccessible certaines méthodes ou certains attributs d'une classe.
+Cela permet de sécuriser le processus et le fonctionnement d'une méthode. Par exemple prenons une librairy qui contient une classe qui permet de faire accélerer ou ralentir une voiture dans le contexte d'un jeu vidéo; l'accéleration d'une voiture sera défini dans une variable. Si cette variable est public, elle peut être modifiée par les classes qui hériteront ou instancieront la classe de la voiture, ce qui changera le comportement global de la voiture et donc celui du programme général; alors que si cette variable est protéger ou privée, elle ne pourra pas être modifiée.
+
+## Expliquer un exemple d'usage d'une interface ou d'une class et méthode abstraite ##
+
+
 
 # Architecture #
 
